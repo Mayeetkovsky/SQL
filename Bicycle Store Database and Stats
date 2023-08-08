@@ -1,0 +1,64 @@
+/*Create a [bicycle] store database*/
+
+CREATE TABLE
+    store (id INTEGER PRIMARY KEY, name TEXT, aisle INTEGER, section TEXT, price INTEGER, quantity INTEGER);
+
+/*Separation between command blocks*/
+
+INSERT INTO
+    store VALUES (1, "Bike", 2, "Sports", 109.99, 2);
+INSERT INTO
+    store VALUES (2, "Helmet", 4, "Equipment", 29.99, 5);
+INSERT INTO
+    store VALUES (3, "Bolts", 1, "Hardware", 0.99, 52);
+INSERT INTO
+    store VALUES (4, "Shoes", 3, "Clothing", 12.99, 6);
+INSERT INTO
+    store VALUES (5, "Socks", 3, "Clothing", 3.99, 12);
+INSERT INTO
+    store VALUES (6, "Energy Drink", 5, "Food and Drink", 2.99, 15);
+INSERT INTO
+    store VALUES (7, "Energy Bar", 5, "Food and Drink", 1.99, 15);
+INSERT INTO
+    store VALUES (8, "Foot Cream", 6, "Medical", 6.99, 8);
+INSERT INTO
+    store VALUES (9, "First Aid Kit", 6, "Medical", 10.99, 3);
+INSERT INTO
+    store VALUES (10, "Chains", 1, "Hardware", 5.99, 7);
+INSERT INTO
+    store VALUES (11, "Brakes", 1, "Hardware", 12.99, 3);
+INSERT INTO
+    store VALUES (12, "Grease", 1, "Hardware", 3.99, 4);
+INSERT INTO
+    store VALUES (13, "Kids Bike", 2, "Sports", 59.99, 2);
+INSERT INTO
+    store VALUES (14, "Kids Helmet", 4, "Equipment", 24.99, 3);
+INSERT INTO
+    store VALUES (15, "Hi-vis vest", 3, "Clothing", 10.99, 10);
+
+/*Display the database ordered by price*/
+
+SELECT
+    *
+FROM
+    store
+ORDER BY
+    price DESC;
+
+/*What is the average price of products in "Hardware" section?*/
+
+SELECT 
+    AVG(price) AS "avg_hardware_item_price"
+FROM
+  store
+WHERE
+  section='Hardware';
+
+/*What is the retail cost of the all the items in aisle 2?*/
+
+SELECT
+    SUM(price*quantity) AS aisle_2_total_price
+FROM
+    store
+WHERE
+    aisle=2;
