@@ -1,7 +1,8 @@
 /*Create a [bicycle] store database*/
 
 CREATE TABLE
-    store (id INTEGER PRIMARY KEY,
+    store (
+        id INTEGER PRIMARY KEY,
         name TEXT,
         aisle INTEGER,
         section TEXT,
