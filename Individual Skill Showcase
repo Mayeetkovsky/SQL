@@ -1,1 +1,28 @@
+/*START "Part 1: SQL Basics - Creating Tables and Inserting Data/Querying Tables/Aggregating Data"*/
 
+/*START Part 1: Challenge 1 - Creating Tables and Inserting Data*/
+
+/*1.1.1 Create a database table to store a list of my favorite books.
+It should have columns for id, name, and rating(scale of 1-5, 1 being lowest and 5 being highest.*/
+
+CREATE TABLE
+    favorite_books (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        rating INTEGER);
+
+/*1.1.2 Add 3 of my favorite books to the table, and show them.*/
+
+INSERT INTO
+    favorite_books VALUES (1, "Don Quixote", 5);
+INSERT INTO
+    favorite_books VALUES (2, "Spare Parts", 3);
+INSERT INTO
+    favorite_books VALUES (3, "Redwall", 5);
+
+SELECT
+    *
+FROM
+    favorite_books;
+
+/*END Part 1: Challenge 1 - Creating Tables and Inserting Data*/
