@@ -225,3 +225,20 @@ HAVING
 ORDER BY
     MVP_wins DESC
     ;
+
+/*Find the 2 most hosted states and put them in descending order.*/
+
+SELECT
+    State,
+    COUNT(*) AS times_hosted
+FROM
+    superbowls
+WHERE
+    State = "California"
+    OR
+    State = "Florida"
+GROUP BY
+    State
+ORDER BY
+    times_hosted DESC
+    ;
