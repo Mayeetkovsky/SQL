@@ -209,3 +209,19 @@ GROUP BY
 ORDER BY
     Loser_pts DESC
     ;
+
+/*Find players who have won MVP multiple times, as well as what percentage of overall MVPs those wins represent in descending order. */
+
+SELECT
+    MVP,
+    COUNT(*) AS MVP_wins,
+    COUNT(*)*100/(SELECT COUNT(*) FROM superbowls) AS percent_of_total_MVP_wins
+FROM
+    superbowls
+GROUP BY
+    MVP
+HAVING
+    MVP_wins > 1
+ORDER BY
+    MVP_wins DESC
+    ;
