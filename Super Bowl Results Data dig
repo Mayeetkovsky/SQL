@@ -194,3 +194,18 @@ HAVING
 ORDER BY
     avg_winning_margin DESC
     ;
+
+/*For losing teams only, find their highest score. Include how many losing appearances they have had in the Super Bowl.
+Rank by score in descending order.*/
+
+SELECT
+    Loser,
+    COUNT(*) AS sb_losing_apps,
+    MAX(Loser_pts) AS loser_score
+FROM
+    superbowls
+GROUP BY
+    Loser
+ORDER BY
+    Loser_pts DESC
+    ;
