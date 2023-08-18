@@ -179,3 +179,18 @@ INSERT INTO
 INSERT INTO
     superbowls(Date,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State)
         VALUES ('Jan 15 1967','I (1)','Green Bay Packers',35,'Kansas City Chiefs',10,'Bart Starr+','Memorial Coliseum','Los Angeles','California');
+
+/*Find the average winning margin for multiple sb winners. Order by said margin in descending order.*/
+SELECT
+    Winner,
+    COUNT(*) AS sb_winning_apps,
+    ROUND(AVG(Winner_Pts) ,0) AS avg_winning_margin
+FROM
+    superbowls
+GROUP BY
+    Winner
+HAVING
+    sb_winning_apps > 1
+ORDER BY
+    avg_winning_margin DESC
+    ;
