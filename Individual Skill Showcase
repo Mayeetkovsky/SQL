@@ -652,3 +652,21 @@ GROUP BY
 ORDER BY
     total_spent DESC;
 /*END Part 3: Challenge 2 - Joining Related Tables with Left Outer Join*/
+
+/* START Part 3: Challenge 3 - Joining Tables to Themselves with Self-Joins*/
+
+/*3.3.1 Below is a table with all the 'Harry Potter' movies, with a sequel_id column that matches the id of the sequel for each movie.
+Issue a SELECT that will show the title of each movie next to its sequel's title (or NULL if it doesn't have a sequel).*/
+
+SELECT
+    movies.title,
+    sequel.title AS sequel
+FROM
+    movies
+LEFT OUTER JOIN
+    movies sequel
+ON
+    movies.sequel_id = sequel.id
+    ;
+
+/*END Part 3: Challenge 3 - Joining Tables to Themselves with Self-Joins*/
