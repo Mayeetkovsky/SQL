@@ -760,3 +760,24 @@ JOIN
 ON
     p.id = h.person_id
     ;
+
+/* 3.4.2 Now, use another SELECT with a JOIN to show the names of each pair of friends, based on the data in the friends table.*/
+
+SELECT
+    a.fullname,
+    b.fullname
+FROM
+    friends f
+JOIN
+    persons a
+ON
+    a.id = f.person1_id
+JOIN
+    persons b
+ON
+    b.id = f.person2_id
+
+/*END Part 3: Challenge 4 - Combining Multiple Joins*/
+
+/*END Part 3: Relational queries in SQL - JOINing Related Tables/Joining Related Tables with Left Outer Join/
+Joining Tables to Themselves with Self-Joins/Combining Multiple Joins*/
