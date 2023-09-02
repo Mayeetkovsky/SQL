@@ -1,0 +1,149 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+#Preliminary Stage: Cleaning data. Before querying this database, I need to verify that the data contained within is ready to be anaylsed. If it requires cleaning
+#I will be taking appropriate steps to do so before commencing my project. I will first query the 'customers' table below:
+
+SELECT
+  *
+FROM
+  BIT_DB.customers
+
+#Running this query, and then sorting by column 'order_id' reveals that there are multiple rows that contain invalid entries (that is, more characters than a standard order_id).
+#Therefore, it is now necessary to filter out these invalid results out of any further queries, using the following addition to my queries:
+
+WHERE 
+  length(order_id) = 6
+AND
+  order_id <> 'Order ID'
+
+#Having reviewed the schema of the database, it has become clear that the order data tables contain a slight variation of the 'order_id' column that is found in the 'customers' table.
+#An amended addition, shown below, must be added to the queries for these tables including the 'order_id' column:
+
+WHERE 
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+
+#With the data sufficiently filtered, I can now begin to query the database.
+
+#1. How many orders were placed in January?
+
+SELECT
+    count(orderID)
+FROM
+    BIT_DB.JanSales
+WHERE 
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+
+#2. How many of those orders were for an iPhone?
+
+SELECT
+    count(orderID)
+FROM
+    BIT_DB.JanSales
+WHERE
+    Product = 'iPhone'
+AND
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+
+#3. Select the customer account numbers for all the orders that were placed in February.
+
+SELECT
+    acctnum
+FROM
+    BIT_DB.customers c
+INNER JOIN
+    BIT_DB.FebSales fs
+ON
+    c.order_id = fs.orderID
+WHERE 
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+
+#4. Which product was the cheapest one sold in January, and what was the price?
+
+SELECT
+    DISTINCT Product,
+    price
+FROM
+    BIT_DB.JanSales
+WHERE
+    price in (
+        SELECT
+            min(price)
+        FROM
+            BIT_DB.JanSales
+        )
+AND
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+
+#OR
+
+SELECT
+    DISTINCT Product,
+    price
+FROM
+    BIT_DB.JanSales
+WHERE
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+ORDER BY
+    price ASC
+LIMIT 1
+
+#5. What is the total revenue for each product sold in January?
+
+SELECT
+    SUM(Quantity)*price as revenue,
+    Product
+FROM
+    BIT_DB.JanSales
+WHERE
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+GROUP BY
+    Product
+
+#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+
+SELECT
+    Product,
+    Quantity,
+    SUM(Quantity)*price as revenue
+FROM
+    BIT_DB.FebSales
+WHERE
+    location = '548 Lincoln St, Seattle, WA 98101'
+AND
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
+GROUP BY
+    Product
+
+#7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?
+
+SELECT
+    COUNT(DISTINCT c.acctnum) AS multiple_order_customers,
+    AVG(Quantity*price) AS average_spend
+FROM
+    BIT_DB.FebSales fs
+LEFT JOIN
+    BIT_DB.customers c
+ON
+    fs.orderID = c.order_id
+WHERE
+    fs.Quantity > 2
+AND
+  length(orderID) = 6
+AND
+  orderID <> 'Order ID'
