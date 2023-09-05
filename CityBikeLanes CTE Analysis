@@ -91,3 +91,25 @@ WHERE
   street='Walnut'
 
 #Note: 2 separate safety ratings show up for this street because 2 engineers rated it differently.
+
+#3. Create a list of all the bike lanes that have an average safety rating of 4.0 or higher. Show the average safety rating of each lane with a label that says "Safe Lane".
+
+WITH safety_average_cte AS
+    (
+    SELECT
+        street,
+        AVG(safetyrating) AS 'rating'
+    FROM
+        citybikelanes
+    GROUP BY
+        street
+    )
+    
+SELECT 
+    street,
+    rating,
+    'Safe Lane' AS 'label'
+FROM
+    safety_average_cte
+WHERE
+    rating >=4
