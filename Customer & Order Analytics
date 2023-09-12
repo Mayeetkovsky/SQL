@@ -79,10 +79,6 @@ WHERE
         FROM
             BIT_DB.JanSales
         )
-AND
-  length(orderID) = 6
-AND
-  orderID <> 'Order ID'
 
 #OR
 
@@ -91,10 +87,6 @@ SELECT
     price
 FROM
     BIT_DB.JanSales
-WHERE
-  length(orderID) = 6
-AND
-  orderID <> 'Order ID'
 ORDER BY
     price ASC
 LIMIT 1
@@ -106,10 +98,6 @@ SELECT
     Product
 FROM
     BIT_DB.JanSales
-WHERE
-  length(orderID) = 6
-AND
-  orderID <> 'Order ID'
 GROUP BY
     Product
 
@@ -123,10 +111,6 @@ FROM
     BIT_DB.FebSales
 WHERE
     location = '548 Lincoln St, Seattle, WA 98101'
-AND
-  length(orderID) = 6
-AND
-  orderID <> 'Order ID'
 GROUP BY
     Product
 
